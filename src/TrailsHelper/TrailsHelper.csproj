@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
     <TrimMode>copyused</TrimMode>
@@ -72,75 +72,23 @@
 	https://github.com/AvaloniaUI/Avalonia/issues/5593 -->
     <TrimmableAssembly Include="Avalonia.Themes.Fluent" />
     <TrimmableAssembly Include="Avalonia.Themes.Default" />
-    <TrimmableAssembly Include="Material.Avalonia" />
-    <TrimmableAssembly Include="Material.Colors" />
-    <TrimmableAssembly Include="Material.DataGrid" />
-    <TrimmableAssembly Include="Material.Dialog" />
-    <TrimmableAssembly Include="Material.Ripple" />
-
-    <TrimmableAssembly Include="MessageBox.Avalonia" />
-
-    
-    <TrimmableAssembly Include="Microsoft.AspNet.WebApi.Client" />
-    <!-- We only use .net7.0 for OpenFileDialog, so all the rest can go -->
-    <TrimmableAssembly Include="System.Windows.Controls.Ribbon" />
-    <TrimmableAssembly Include="System.Windows.Forms" />
-    <TrimmableAssembly Include="System.Windows.Forms.Design" />
-    <TrimmableAssembly Include="System.Windows.Forms.Primitives" />
-    <TrimmableAssembly Include="System.Xaml" />
-    <TrimmableAssembly Include="System.Printing" />
-
-    <TrimmableAssembly Include="PresentationCore" />
-    <TrimmableAssembly Include="PresentationFramework" />
-    <TrimmableAssembly Include="PresentationFramework.Aero" />
-    <TrimmableAssembly Include="PresentationFramework.Aero2" />
-    <TrimmableAssembly Include="PresentationFramework.AeroLite" />
-    <TrimmableAssembly Include="PresentationFramework.Classic" />
-    <TrimmableAssembly Include="PresentationFramework.Luna" />
-    <TrimmableAssembly Include="PresentationFramework.Royale" />
-    <TrimmableAssembly Include="PresentationFramework-SystemCore" />
-    <TrimmableAssembly Include="PresentationFramework-SystemData" />
-    <TrimmableAssembly Include="PresentationFramework-SystemDrawing" />
-    <TrimmableAssembly Include="PresentationFramework-SystemXml" />
-    <TrimmableAssembly Include="PresentationFramework-SystemXmlLinq" />
-    <TrimmableAssembly Include="PresentationUI" />
-    <TrimmableAssembly Include="ReachFramework" />
-    <TrimmableAssembly Include="System.CodeDom" />
-
-    <TrimmableAssembly Include="System.Security.Cryptography.Pkcs" />
-    <TrimmableAssembly Include="System.Security.Cryptography.ProtectedData" />
-    <TrimmableAssembly Include="System.Security.Cryptography.Xml" />
-    <TrimmableAssembly Include="System.Configuration.ConfigurationManager" />
-    <TrimmableAssembly Include="WindowsFormsIntegration" />
-
-    <TrimmableAssembly Include="DirectWriteForwarder" />
-    <TrimmableAssembly Include="Microsoft.VisualBasic" />
-    <TrimmableAssembly Include="Microsoft.VisualBasic.Forms" />
-
-    <TrimmableAssembly Include="UIAutomationTypes" />
-    <TrimmableAssembly Include="UIAutomationClient" />
-    <TrimmableAssembly Include="UIAutomationClientSideProviders" />
-    <TrimmableAssembly Include="UIAutomationProvider" />
-    <TrimmableAssembly Include="WindowsBase" />
-
-    <TrimmableAssembly Include="System.Design" />
-    <TrimmableAssembly Include="System.Diagnostics.EventLog" />
-    <TrimmableAssembly Include="System.Diagnostics.PerformanceCounter" />
-    <TrimmableAssembly Include="System.Drawing" />
-    <TrimmableAssembly Include="System.Drawing.Common" />
-    <TrimmableAssembly Include="System.Drawing.Design" />
-
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.15" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.15" />
+    <PackageReference Include="Avalonia" Version="0.10.999-cibuild0021285-beta" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0021285-beta" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.15" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.15" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0021285-beta" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0021285-beta" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="0.10.999-cibuild0021285-beta" />
+    <PackageReference Include="Avalonia.Themes.Default" Version="0.10.999-cibuild0021285-beta" />
+    <PackageReference Include="MessageBox.Avalonia" Version="2.0.1-cibuild0021285-beta" />
+    <PackageReference Include="Material.Styles" Version="3.0.0-cibuild0021285-beta" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="3.7.9.18" />
     <PackageReference Include="MegaApiClient" Version="1.10.2" />
-    <PackageReference Include="MessageBox.Avalonia" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="6.0.0-preview.5.21301.5" />
     <PackageReference Include="MonoTorrent" Version="3.0.0-alpha.unstable.rev0217" />
@@ -148,10 +96,9 @@
     <PackageReference Include="SharpCompress" Version="0.32.1" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
     <PackageReference Include="Facepunch.Steamworks" Version="2.3.3" />
-    <PackageReference Include="Material.Avalonia" Version="3.0.0-rc0.90-nightly" />
   </ItemGroup>
 
   <PropertyGroup>
-    <RestoreSources>$(RestoreSources);../packages;https://api.nuget.org/v3/index.json</RestoreSources>
+    <RestoreSources>$(RestoreSources);../packages;https://api.nuget.org/v3/index.json;https://nuget.avaloniaui.net/repository/avalonia-all/index.json</RestoreSources>
   </PropertyGroup>
 </Project>

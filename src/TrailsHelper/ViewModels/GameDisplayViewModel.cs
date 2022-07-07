@@ -17,7 +17,7 @@ namespace TrailsHelper.ViewModels
 {
     public class GameDisplayViewModel : ViewModelBase
     {
-        GameModel _game;
+        readonly GameModel _game;
         public GameModel Game => _game;
         public ReactiveCommand<Unit, GameDisplayViewModel> InstallForSteamGameCommand { get; }
         public ReactiveCommand<Unit, GameDisplayViewModel> BrowseThenInstallGameCommand { get; }

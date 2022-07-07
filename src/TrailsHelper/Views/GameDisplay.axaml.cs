@@ -7,6 +7,10 @@ using TrailsHelper.ViewModels;
 using System.Threading.Tasks;
 using Avalonia.Controls.ApplicationLifetimes;
 using System.IO;
+using System.Collections.Generic;
+using Avalonia.Platform.Storage;
+using System.Linq;
+using System;
 
 namespace TrailsHelper.Views
 {
@@ -44,31 +48,58 @@ namespace TrailsHelper.Views
         }
 
 
-        private void DoBrowseForInstallFolderAsync(InteractionContext<GameDisplayViewModel, DirectoryInfo?> interaction)
+        private async Task DoBrowseForInstallFolderAsync(InteractionContext<GameDisplayViewModel, DirectoryInfo?> interaction)
         {
 
             // todo: linux won't play nice with PresentationFramework..
 
             if (Application.Current!.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                var mainIcon = desktop.MainWindow.Icon;
+                var mainIcon = desktop.MainWindow!.Icon;
                 desktop.MainWindow.Icon = interaction.Input.InstallWindowIcon;
                 //desktop.MainWindow.Icon = dialog.Icon;
 
-                var dialog = new Microsoft.Win32.OpenFileDialog()
-                {
-                    Multiselect = false,
-                    Filter = $"{interaction.Input.Title}|{interaction.Input.Game.ExecutableName}",
-                    Title = $"Find the installation of {interaction.Input.Title}",
-                    CheckFileExists = true,
-                    CheckPathExists = true
-                };
+                //var dialog = new Microsoft.Win32.OpenFileDialog()
+                //{
+                //    Multiselect = false,
+                //    Filter = $"{interaction.Input.Title}|{interaction.Input.Game.ExecutableName}",
+                //    Title = $"Find the installation of {interaction.Input.Title}",
+                //    CheckFileExists = true,
+                //    CheckPathExists = true
+                //};
 
+
+                //if (dialog.ShowDialog() == true && new FileInfo(dialog.FileName).Directory is DirectoryInfo directory && directory.Exists)
+                //{
+                //    interaction.SetOutput(directory);
+                //}
+                //else
+                //{
+                //    interaction.SetOutput(null);
+                //}
+
+                var dialogResult = await desktop.MainWindow.StorageProvider.OpenFilePickerAsync(new()
+                {
+                    AllowMultiple = false,
+                    Title = $"Find the installation of {interaction.Input.Title}",
+                    FileTypeFilter = new List<FilePickerFileType>()
+                    {
+                        new(interaction.Input.Title)
+                        {
+                            Patterns = new List<string>()
+                            {
+                                interaction.Input.Game.ExecutableName
+                            }
+                        }
+                    }
+                });
           
-                if (dialog.ShowDialog() == true && new FileInfo(dialog.FileName).Directory is DirectoryInfo directory && directory.Exists) 
+                if (dialogResult.Count == 1 && dialogResult.Single().TryGetUri(out Uri? fileUri)
+                    && fileUri is not null
+                    && new FileInfo(fileUri.LocalPath).Directory is DirectoryInfo directory && directory.Exists)
                 {
                     interaction.SetOutput(directory);
-                }
+                } 
                 else
                 {
                     interaction.SetOutput(null);
