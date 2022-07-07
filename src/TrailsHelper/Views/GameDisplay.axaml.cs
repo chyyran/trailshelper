@@ -33,7 +33,7 @@ namespace TrailsHelper.Views
 
             if (Application.Current!.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                var mainIcon = desktop.MainWindow.Icon;
+                var mainIcon = desktop.MainWindow!.Icon;
                 desktop.MainWindow.WindowState = WindowState.Minimized;
                 desktop.MainWindow.Icon = dialog.Icon;
 
@@ -57,31 +57,11 @@ namespace TrailsHelper.Views
             {
                 var mainIcon = desktop.MainWindow!.Icon;
                 desktop.MainWindow.Icon = interaction.Input.InstallWindowIcon;
-                //desktop.MainWindow.Icon = dialog.Icon;
-
-                //var dialog = new Microsoft.Win32.OpenFileDialog()
-                //{
-                //    Multiselect = false,
-                //    Filter = $"{interaction.Input.Title}|{interaction.Input.Game.ExecutableName}",
-                //    Title = $"Find the installation of {interaction.Input.Title}",
-                //    CheckFileExists = true,
-                //    CheckPathExists = true
-                //};
-
-
-                //if (dialog.ShowDialog() == true && new FileInfo(dialog.FileName).Directory is DirectoryInfo directory && directory.Exists)
-                //{
-                //    interaction.SetOutput(directory);
-                //}
-                //else
-                //{
-                //    interaction.SetOutput(null);
-                //}
-
+        
                 var dialogResult = await desktop.MainWindow.StorageProvider.OpenFilePickerAsync(new()
                 {
                     AllowMultiple = false,
-                    Title = $"Find the installation of {interaction.Input.Title}",
+                    Title = $"Search for the installation of {interaction.Input.Title}",
                     FileTypeFilter = new List<FilePickerFileType>()
                     {
                         new(interaction.Input.Title)

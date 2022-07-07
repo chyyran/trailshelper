@@ -8,7 +8,7 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <AssemblyName>SkyInstaller</AssemblyName>
     <ApplicationIcon>Assets/fc_config.ico</ApplicationIcon>
-    <Version>1.3.1</Version>
+    <Version>1.4.0</Version>
     <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
   </PropertyGroup>
 
@@ -75,14 +75,13 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.999-cibuild0021285-beta" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0021285-beta" />
+    <PackageReference Include="Avalonia" Version="0.10.999-cibuild0021683-beta" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0021683-beta" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.15" />
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0021285-beta" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0021285-beta" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="0.10.999-cibuild0021285-beta" />
-    <PackageReference Include="Avalonia.Themes.Default" Version="0.10.999-cibuild0021285-beta" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0021683-beta" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0021683-beta" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="0.10.999-cibuild0021683-beta" />
+    <PackageReference Include="Avalonia.Themes.Default" Version="0.10.999-cibuild0021683-beta" />
     <PackageReference Include="MessageBox.Avalonia" Version="2.0.1-cibuild0021285-beta" />
     <PackageReference Include="Material.Styles" Version="3.0.0-cibuild0021285-beta" />
   </ItemGroup>
@@ -99,6 +98,6 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <RestoreSources>$(RestoreSources);../packages;https://api.nuget.org/v3/index.json;https://nuget.avaloniaui.net/repository/avalonia-all/index.json</RestoreSources>
+    <RestoreSources>$(RestoreSources);../packages;https://api.nuget.org/v3/index.json;https://nuget.avaloniaui.net/repository/avalonia-nightly/index.json</RestoreSources>
   </PropertyGroup>
 </Project>
